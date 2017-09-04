@@ -18,7 +18,13 @@ const hackyPatchy = (filePath, target, replacement) =>{
 hackyPatchy(
   'node_modules/web3/packages/web3-eth/node_modules/web3-eth-accounts/node_modules/scrypt/index.js',
   'var scryptNative = require("./build/Release/scrypt")',
-  'var scryptNative = require("scrypt")'
+  'var scryptNative = require("./build/Release/scrypt.node")'
+)
+
+hackyPatchy(
+  'node_modules/scrypt/index.js',
+  'var scryptNative = require("./build/Release/scrypt")',
+  'var scryptNative = require("./build/Release/scrypt.node")'
 )
 
 hackyPatchy(

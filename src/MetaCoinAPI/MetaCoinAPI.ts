@@ -1,9 +1,21 @@
 
 const ProviderEngine = require('web3-provider-engine')
+const WalletSubprovider = require('web3-provider-engine/subproviders/wallet.js');
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
+const bip39 = require("bip39");
+const hdkey = require('ethereumjs-wallet/hdkey')
 
 const contract = require('truffle-contract')
 let Web3 = require('web3')
+
+const getWallet = () =>{
+  const seed = bip39.mnemonicToSeed("couch solve unique spirit wine fine occur rhythm foot feature glory away")
+  var hdwallet = hdkey.fromMasterSeed(seed);
+  // Get the first account using the standard hd path.
+  var wallet_hdpath = "m/44'/60'/0'/0/";
+  var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet();
+  return wallet
+}
 
 export class MetaCoinAPI {
   public engine: any
@@ -14,11 +26,17 @@ export class MetaCoinAPI {
     public providerUrl = 'http://localhost:8545'
   ){
 
-    // this.engine = new ProviderEngine()
+    this.engine = new ProviderEngine()
     // this.engine.addProvider(new RpcSubprovider({rpcUrl: this.providerUrl}) )
-    // this.web3 = new Web3(this.engine)
 
-    this.web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
+    this.engine.addProvider(new WalletSubprovider(
+      getWallet()
+      , {})
+    );
+
+    this.web3 = new Web3(this.engine)
+
+    // this.web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
     this.contract = contract(this.abi)
     this.contract.setProvider(this.web3.currentProvider)
   }
@@ -46,12 +64,6 @@ export class MetaCoinAPI {
   }
   
 }
-    // var hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed("couch solve unique spirit wine fine occur rhythm foot feature glory away"));
-    // // Get the first account using the standard hd path.
-    // var wallet_hdpath = "m/44'/60'/0'/0/";
-    // var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet();
-    // this.engine.addProvider(new WalletSubprovider(
-    //   wallet
-    //   , {})
-    // );
-    
+
+
+

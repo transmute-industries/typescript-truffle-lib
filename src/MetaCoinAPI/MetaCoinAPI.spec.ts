@@ -18,13 +18,13 @@ describe(`MetaCoinAPI`, () => {
   //   expect(metaCoinAPI.abi).toBe(require('../../build/contracts/MetaCoin.json'))
   // })
 
-  it.only("should put 10000 MetaCoin in the first account", async() => {
+  it.only("should put 10000 MetaCoin in the first account", (done) => {
     const metaCoinAPI = new MetaCoinAPI()
-    let accounts = await metaCoinAPI.web3.eth.getAccounts()
-    console.log(accounts);
-     
+    metaCoinAPI.web3.eth.getAccounts((error: any, result: any) =>{
+      console.log(result)
+      done();
+    })
     
-   
     
     // metaCoinAPI.web3.eth.getAccounts().then(console.log)
 
