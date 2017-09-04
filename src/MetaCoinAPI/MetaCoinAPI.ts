@@ -58,7 +58,6 @@ export class MetaCoinAPI {
     .then((data: any) =>{
       return data.toNumber()
     })
-  
   }
   
 }
