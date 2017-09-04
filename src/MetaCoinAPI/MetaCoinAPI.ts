@@ -9,12 +9,15 @@ const contract = require('truffle-contract')
 
 const Web3 = require('web3')
 
+const wallet_mneumonic = 'couch solve unique spirit wine fine occur rhythm foot feature glory away'
+const wallet_address = '0xc3d2a1629d3990d8b9d9799c8675ec18c6f00247'
+
 const getWallet = () =>{
-  const seed = bip39.mnemonicToSeed("couch solve unique spirit wine fine occur rhythm foot feature glory away")
+  const seed = bip39.mnemonicToSeed()
   var hdwallet = hdkey.fromMasterSeed(seed);
   // Get the first account using the standard hd path.
   var wallet_hdpath = "m/44'/60'/0'/0/";
-  var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet();
+  var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet(wallet_mneumonic);
   return wallet
 }
 
