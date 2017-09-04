@@ -2,7 +2,7 @@
 const ProviderEngine = require('web3-provider-engine')
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
 const contract = require('truffle-contract')
-var Web3 = require('web3')
+let Web3 = require('web3')
 
 export class MetaCoinAPI {
   public engine: any
@@ -10,7 +10,7 @@ export class MetaCoinAPI {
   public contract: any
   constructor(
     public abi: any = require('../../build/contracts/MetaCoin.json'),
-    public providerUrl: string = 'http://localhost:8545'
+    public providerUrl = 'http://localhost:8545'
   ){
     this.engine = new ProviderEngine()
     this.engine.addProvider(

@@ -35,7 +35,6 @@
     "ts:style:fix": "npm run ts:format:fix && npm run ts:lint:fix",
     "verify": "npm run ts:style && npm test",
     "cz": "git-cz",
-    "precommit": "lint-staged",
     "commitmsg": "validate-commit-msg",
     "prepush": "npm run ts:style && npm run test:only-changed",
     "prerelease": "npm run build",
@@ -58,13 +57,6 @@
       "types": "conventional-commit-types",
       "maxSubjectLength": 120
     }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "npm run prettier:ts -- --write",
-      "ts:lint:fix",
-      "git add"
-    ]
   },
   "jest": {
     "roots": [
