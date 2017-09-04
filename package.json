@@ -16,6 +16,7 @@
     "node": ">=6.9"
   },
   "scripts": {
+    "postinstall": "node ./scripts/patch-for-babel.js",
     "cleanup": "shx rm -rf umd lib lib-esm lib-fesm typings coverage docs",
     "prebuild": "npm run cleanup && npm run verify",
     "build": " tsc && tsc --target es2017 --outDir lib-esm && webpack && webpack --env.prod",
@@ -88,6 +89,7 @@
     }
   },
   "dependencies": {
+    "scrypt": "6.0.3",
     "truffle-contract": "2.0.5",
     "web3": "1.0.0-beta.18",
     "web3-provider-engine": "13.2.9"
