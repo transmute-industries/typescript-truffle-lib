@@ -47,7 +47,8 @@
     "size": "shx echo \"Gzipped Size:\" && cross-var strip-json-comments --no-whitespace $npm_package_main | gzip-size",
     "docker:build": "docker build -t or13/typescript-truffle-lib .",
     "docker:publish": "docker push or13/typescript-truffle-lib",
-    "docker:start": "docker run --rm -it or13/typescript-truffle-lib"
+    "docker:start": "docker run --rm -it or13/typescript-truffle-lib",
+    "testrpc": "pm2 start testrpc"
   },
   "config": {
     "commitizen": {
@@ -91,6 +92,7 @@
   "dependencies": {
     "bip39": "2.4.0",
     "ethereumjs-wallet": "0.6.0",
+    "pm2": "2.6.1",
     "scrypt": "6.0.3",
     "truffle-contract": "2.0.5",
     "web3": "0.20.0",

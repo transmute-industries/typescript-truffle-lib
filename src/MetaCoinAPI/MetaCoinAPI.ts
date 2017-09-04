@@ -1,13 +1,13 @@
 
 const ProviderEngine = require('web3-provider-engine')
 const WalletSubprovider = require('web3-provider-engine/subproviders/wallet.js');
-const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
 const Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
 
 const bip39 = require("bip39");
 const hdkey = require('ethereumjs-wallet/hdkey')
 const contract = require('truffle-contract')
-let Web3 = require('web3')
+
+const Web3 = require('web3')
 
 const getWallet = () =>{
   const seed = bip39.mnemonicToSeed("couch solve unique spirit wine fine occur rhythm foot feature glory away")
@@ -29,11 +29,10 @@ export class MetaCoinAPI {
 
     this.engine = new ProviderEngine()
     this.engine.addProvider(new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl)));
-    // this.engine.addProvider(new RpcSubprovider({rpcUrl: this.providerUrl}) )
-    // this.engine.addProvider(new WalletSubprovider(
-    //   getWallet()
-    //   , {})
-    // );
+    this.engine.addProvider(new WalletSubprovider(
+      getWallet()
+      , {})
+    );
     this.engine.start()
     this.web3 = new Web3(this.engine)
     this.contract = contract(this.abi)
