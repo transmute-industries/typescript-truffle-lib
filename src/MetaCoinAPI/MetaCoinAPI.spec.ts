@@ -1,6 +1,9 @@
 import { MetaCoinAPI } from './MetaCoinAPI'
 
 
+const  providerUrl = 'http://localhost:8545'
+const abi: any = require('../../build/contracts/MetaCoin.json')
+
 describe(`MetaCoinAPI`, () => {
   let metaCoinAPI: MetaCoinAPI
 
@@ -19,12 +22,18 @@ describe(`MetaCoinAPI`, () => {
     expect(metaCoinAPI.abi).toBe(require('../../build/contracts/MetaCoin.json'))
   })
 
+  it(`should support custom provider and abi`, () => {
+    const metaCoinAPI = new MetaCoinAPI(providerUrl, abi)
+    expect(metaCoinAPI.web3.currentProvider._providers[0].provider.host).toBe('http://localhost:8545')
+    expect(metaCoinAPI.abi).toBe(require('../../build/contracts/MetaCoin.json'))
+  })
+
   it("should provide getAccounts as promise",  async () => {
     const metaCoinAPI = new MetaCoinAPI()
     let accounts: any = await metaCoinAPI.getAccounts()
     expect(accounts.length).toBe(10)
   })
-
+  
   it("should put 10000 MetaCoin in the first account",  async () => {
     const metaCoinAPI = new MetaCoinAPI()
     let accounts = await metaCoinAPI.getAccounts()

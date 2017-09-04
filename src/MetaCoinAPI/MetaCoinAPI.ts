@@ -11,29 +11,23 @@ const Web3 = require('web3')
 
 const wallet_mneumonic = 'couch solve unique spirit wine fine occur rhythm foot feature glory away'
 const wallet_address = '0xc3d2a1629d3990d8b9d9799c8675ec18c6f00247'
-
-const getWallet = () =>{
-  const seed = bip39.mnemonicToSeed()
-  var hdwallet = hdkey.fromMasterSeed(seed);
-  // Get the first account using the standard hd path.
-  var wallet_hdpath = "m/44'/60'/0'/0/";
-  var wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet(wallet_mneumonic);
-  return wallet
-}
+const seed = bip39.mnemonicToSeed()
+const hdwallet = hdkey.fromMasterSeed(seed);
+const wallet_hdpath = "m/44'/60'/0'/0/";
+const wallet = hdwallet.derivePath(wallet_hdpath + "0").getWallet(wallet_mneumonic);
 
 export class MetaCoinAPI {
   public engine: any
   public web3: any
   public contract: any
   constructor(
-    public abi: any = require('../../build/contracts/MetaCoin.json'),
-    public providerUrl = 'http://localhost:8545'
+    public providerUrl = 'http://localhost:8545',
+    public abi: any = require('../../build/contracts/MetaCoin.json')
   ){
-
     this.engine = new ProviderEngine()
     this.engine.addProvider(new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl)));
     this.engine.addProvider(new WalletSubprovider(
-      getWallet()
+      wallet
       , {})
     );
     this.engine.start()
