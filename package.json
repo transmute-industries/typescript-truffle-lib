@@ -36,7 +36,6 @@
     "verify": "npm run ts:style && npm test",
     "cz": "git-cz",
     "commitmsg": "validate-commit-msg",
-    "prepush": "npm run ts:style && npm run test:only-changed",
     "prerelease": "npm run build",
     "release": "standard-version",
     "postrelease": "npm run release:github && npm run release:npm",

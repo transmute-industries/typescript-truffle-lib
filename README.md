@@ -1,5 +1,7 @@
 # TypeScript Truffle Library
 
+[![Build Status](https://travis-ci.org/transmute-industries/typescript-truffle-lib.svg)](https://travis-ci.org/transmute-industries/typescript-truffle-lib)
+
 ```
 $ npm install
 $ npm run test
