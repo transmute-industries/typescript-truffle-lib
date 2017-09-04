@@ -1,5 +1,7 @@
 const fs = require('fs')
 
+console.log('Patching: 🤖 ...');
+
 const hackyPatchy = (filePath, target, replacement) =>{
  fs.readFile(filePath, 'utf8', function (err,data) {
     if (err) {
@@ -8,7 +10,7 @@ const hackyPatchy = (filePath, target, replacement) =>{
     var result = data.replace(target, replacement);
     fs.writeFile(filePath, result, 'utf8', function (err) {
        if (err) return console.log(err);
-       console.log('Patching: 🤖  🔬  🔪 ... ' + filePath);
+       console.log('🔬  🔪 ... ' + filePath);
     });
   });
 }
