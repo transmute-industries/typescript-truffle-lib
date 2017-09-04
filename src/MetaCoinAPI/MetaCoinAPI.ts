@@ -2,9 +2,10 @@
 const ProviderEngine = require('web3-provider-engine')
 const WalletSubprovider = require('web3-provider-engine/subproviders/wallet.js');
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
+const Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
+
 const bip39 = require("bip39");
 const hdkey = require('ethereumjs-wallet/hdkey')
-
 const contract = require('truffle-contract')
 let Web3 = require('web3')
 
@@ -27,16 +28,14 @@ export class MetaCoinAPI {
   ){
 
     this.engine = new ProviderEngine()
+    this.engine.addProvider(new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl)));
     // this.engine.addProvider(new RpcSubprovider({rpcUrl: this.providerUrl}) )
-
-    this.engine.addProvider(new WalletSubprovider(
-      getWallet()
-      , {})
-    );
-
+    // this.engine.addProvider(new WalletSubprovider(
+    //   getWallet()
+    //   , {})
+    // );
+    this.engine.start()
     this.web3 = new Web3(this.engine)
-
-    // this.web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
     this.contract = contract(this.abi)
     this.contract.setProvider(this.web3.currentProvider)
   }
@@ -53,14 +52,11 @@ export class MetaCoinAPI {
   }
 
   public getBalance = (instance: any, address: string) =>{
-    return new Promise((resolve, reject) =>{
-      instance.getBalance.call(address, (error: any, result: any) => { 
-          if(error){
-            return reject(error)
-          }
-          return resolve(result)
-       })
+    return  instance.getBalance.call(address)
+    .then((data: any) =>{
+      return data.toNumber()
     })
+  
   }
   
 }
