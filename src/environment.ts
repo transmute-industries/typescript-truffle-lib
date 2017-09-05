@@ -1,3 +1,6 @@
+
+require('dotenv').config({path: '../secret.env'})
+
 /** * @internal */
 export const IS_DEV = () => {
   return process.env.NODE_ENV === 'development'

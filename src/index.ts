@@ -1,1 +1,1 @@
-// export { Greeter } from './Greeter/Greeter'
+export { MetaCoinAPI } from './MetaCoinAPI/MetaCoinAPI'

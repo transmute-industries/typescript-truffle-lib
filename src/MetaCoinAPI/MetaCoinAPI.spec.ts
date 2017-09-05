@@ -1,7 +1,6 @@
 import { MetaCoinAPI } from './MetaCoinAPI'
 
-
-const  providerUrl = 'http://localhost:8545'
+const providerUrl = 'http://localhost:8545'
 const abi: any = require('../../build/contracts/MetaCoin.json')
 
 describe(`MetaCoinAPI`, () => {

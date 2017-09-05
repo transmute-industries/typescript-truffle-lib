@@ -4,15 +4,21 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/transmute-industries/typescript-truffle-lib/badge.svg?branch=master)](https://coveralls.io/github/transmute-industries/typescript-truffle-lib?branch=master)
 
-```
-$ npm install
-$ npm run test
-$ npm run test:truffle
-```
-
+### Test Truffle 
 ```
 $ truffle test
 $ truffle migrate
+```
+
+### Test TypeScript Library
+```
+$ npm install
+$ npm run test
+```
+
+## Test On Rinkeby
+```
+$ truffle migrate --network rinkeby
 ```
 
 ### References
